@@ -1,67 +1,81 @@
-name = "serkan";
+var numberOfDrumButtons = document.querySelectorAll(".drum").length;
 
-console.log(name.length);
+for (var i = 0; i < numberOfDrumButtons; i++) {
 
-var last_2_characters = name.slice(4,6);
+  document.querySelectorAll(".drum")[i].addEventListener("click", function() {
 
+    var buttonInnerHTML = this.innerHTML;
 
-console.log(last_2_characters);
+    makeSound(buttonInnerHTML);
 
+    buttonAnimation(buttonInnerHTML);
 
-var data = prompt("Enter data");
-console.log(data);
+  });
 
-function bmiCalculator(weight, height){
-    return weight / Math.pow(height, 2);
 }
 
-var bmi = bmiCalculator(65, 1.8);
+document.addEventListener("keypress", function(event) {
 
-var list_of_ppl = []
-list_of_ppl.push("serkan");
-list_of_ppl.push("bayram");
-list_of_ppl.push("ahmet");
+  makeSound(event.key);
 
-console.log(list_of_ppl.toString())
+  buttonAnimation(event.key);
 
-console.log(list_of_ppl)
+});
 
-console.log(list_of_ppl.includes("ahmet"))
 
-for(var i = 0; i<list_of_ppl.length; i++){
-    console.log(list_of_ppl[i]);
+function makeSound(key) {
+
+  switch (key) {
+    case "w":
+      var tom1 = new Audio("sounds/tom-1.mp3");
+      tom1.play();
+      break;
+
+    case "a":
+      var tom2 = new Audio("sounds/tom-2.mp3");
+      tom2.play();
+      break;
+
+    case "s":
+      var tom3 = new Audio('sounds/tom-3.mp3');
+      tom3.play();
+      break;
+
+    case "d":
+      var tom4 = new Audio('sounds/tom-4.mp3');
+      tom4.play();
+      break;
+
+    case "j":
+      var snare = new Audio('sounds/snare.mp3');
+      snare.play();
+      break;
+
+    case "k":
+      var crash = new Audio('sounds/crash.mp3');
+      crash.play();
+      break;
+
+    case "l":
+      var kick = new Audio('sounds/kick-bass.mp3');
+      kick.play();
+      break;
+
+
+    default: console.log(key);
+
+  }
 }
 
-for (var person of list_of_ppl){
-    console.log(person);
+
+function buttonAnimation(currentKey) {
+
+  var activeButton = document.querySelector("." + currentKey);
+
+  activeButton.classList.add("pressed");
+
+  setTimeout(function() {
+    activeButton.classList.remove("pressed");
+  }, 100);
+
 }
-
-list_of_ppl.forEach(item => console.log(item));
-
-
-// DOM
-
-
-var all_page = document.firstElementChild; // HTML Tag
-var body = document.firstElementChild.lastElementChild;
-console.log(body);
-
-document.querySelector("h1").innerText = "Serkan BAYRAM";
-document.querySelector("h1").innerHTML = "<p>BAYRAM</p>";
-
-document.querySelector("h1").style = "color: red;";
-document.querySelector("#second_title").style = "color: purple;";
-document.querySelector("#second_title").style.backgroundColor = "yellow";
-document.querySelector("#info p").style = "color: red;";
-document.querySelectorAll("#info .p-info")[1].style = "color: yellow;";
-
-var class_list = document.querySelector("#p-name").classList;
-console.log(class_list);
-document.querySelector("#p-name").classList.add('reSize'); // what will do is <p class="p-info reSize"></p>
-
-var attr = document.querySelector("a").getAttribute('href'); 
-console.log(attr);
-
-document.querySelector("a").innerText = "YOUTUBE";
-document.querySelector("a").setAttribute('href', 'www.youtube.com');
-
